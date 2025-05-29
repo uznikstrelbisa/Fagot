@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Удостоверение личности</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #ffffff;
+      color: #000;
+    }
+
+    .container {
+      max-width: 420px;
+      margin: 0 auto;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding: 16px;
+    }
+
+    .header {
+      text-align: center;
+      padding: 16px 0;
+      font-size: 18px;
+      font-weight: 600;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    .tabs {
+      display: flex;
+      justify-content: space-around;
+      border-bottom: 1px solid #ddd;
+      margin-bottom: 16px;
+    }
+
+    .tab {
+      flex: 1;
+      padding: 12px;
+      text-align: center;
+      background: none;
+      border: none;
+      font-size: 16px;
+      color: #999;
+      border-bottom: 2px solid transparent;
+    }
+
+    .tab.active {
+      color: #000;
+      font-weight: 600;
+      border-bottom: 2px solid #e60000;
+    }
+
+    .content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .document-image {
+      max-width: 100%;
+      max-height: 60vh;
+      margin-bottom: 20px;
+      display: none;
+    }
+
+    .upload-btn {
+      background-color: #f9f9f9;
+      padding: 60px;
+      border-radius: 12px;
+      color: #ccc;
+      font-size: 18px;
+      border: 2px dashed #ccc;
+      text-align: center;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    .upload-btn:hover {
+      background-color: #f0f0f0;
+    }
+
+    #file-input {
+      display: none;
+    }
+
+    .actions {
+      padding-bottom: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .btn-primary {
+      background-color: #e60000;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 14px;
+      font-size: 16px;
+      font-weight: bold;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-secondary {
+      background-color: transparent;
+      color: #000;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 14px;
+      font-size: 16px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+    }
+  </style>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter&display=swap" />
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Удостоверение личности</h1>
+    </div>
+
+    <div class="tabs">
+      <button class="tab active">Документ</button>
+      <button class="tab">Реквизиты</button>
+    </div>
+
+    <div class="content">
+      <img id="document-image" class="document-image" alt="Загруженное изображение документа">
+      
+      <label for="file-input" class="upload-btn" id="upload-label">
+        Нажмите для загрузки документа
+      </label>
+      <input type="file" id="file-input" accept="image/*">
+    </div>
+
+    <div class="actions">
+      <button class="btn-primary">
+        <img src="https://img.icons8.com/ios-glyphs/20/ffffff/qr-code.png" alt="QR" />
+        Предъявить документ
+      </button>
+      <button class="btn-secondary">
+        <img src="https://img.icons8.com/ios-glyphs/20/000000/share.png" alt="Share" />
+        Отправить документ
+      </button>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('file-input').addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(event) {
+          const image = document.getElementById('document-image');
+          image.src = event.target.result;
+          image.style.display = 'block';
+          document.getElementById('upload-label').style.display = 'none';
+        }
+        reader.readAsDataURL(file);
+      }
+    });
+  </script>
+</body>
+</html>
